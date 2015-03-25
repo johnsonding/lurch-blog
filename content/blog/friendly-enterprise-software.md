@@ -8,6 +8,8 @@ tags:
 - document_management
 - it_strategy
 ---
+<br><center>![alt tag](https://media.licdn.com/mpr/mpr/jc/p/5/005/0b5/3fc/16e5a6d.jpg)</center>
+
 ## The iPhone spoils us!
 
 Remember the time before the iPhone? The so called 'smartphones' were bulky, unresponsive, had to be constantly restarted, were terribly slow and best of all required a really expensive toothpick to operate called a 'stylus'. Ever since the iPhone's release in 2007 (yes its been that long..), smartphones have become easier to use. Most don't even ship with a manual. You open the box and you are good to go. Funny thing though is the price of smartphones has stayed relatively constant.

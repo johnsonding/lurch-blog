@@ -8,9 +8,7 @@ tags:
 - search
 - document_management
 ---
-
-
-<center>![alt tag](https://media.licdn.com/mpr/mpr/jc/AAEAAQAAAAAAAABmAAAAJDEwMDM5MDQzLTNkOGItNGI2NS05MTgxLWE2Zjg3YjkyOTY4MA.jpg)</center>
+<br><center>![alt tag](https://media.licdn.com/mpr/mpr/jc/AAEAAQAAAAAAAABmAAAAJDEwMDM5MDQzLTNkOGItNGI2NS05MTgxLWE2Zjg3YjkyOTY4MA.jpg)</center>
 
 _Enterprise Software Products (per Wikipedia): purpose-designed computer software used to satisfy the needs of an organization rather than individual users._
 
