@@ -142,16 +142,23 @@ module.exports = function (grunt) {
 					src : ['index.hbs'],
 					dest : 'build/'
 				}
+			},
+			'gh-pages': {
+				options: {
+					base: 'build'
+				},
+				src: ['**']
 			}
 		}
-	)
-	;
+	);
 
 	grunt.task.registerTask('build', ['clean', 'copy', 'm2j', 'filetransform', 'assemble']);
+    grunt.task.registerTask('pages', ['build', 'gh-pages']);
 
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-gh-pages');
 	grunt.loadNpmTasks('grunt-markdown-to-json');
 	grunt.loadNpmTasks('grunt-filetransform');
 	grunt.loadNpmTasks('assemble');
