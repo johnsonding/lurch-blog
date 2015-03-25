@@ -1,0 +1,11 @@
+<h1 class="noSubtitle">Recent Blog Posts</h1>
+<ul>
+{{#each blog}}
+	<li>
+		<h2><a href="blog/{{this.basename}}">{{this.title}}</a></h2>
+		<h3>{{this.author}} - {{this.date}}</h3>
+		<p>{{this.description}}</p>
+	</li>
+{{/each}}
+	</li>
+</ul>
