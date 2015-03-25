@@ -9,6 +9,9 @@ tags:
 - document_management
 ---
 
+
+<center>![alt tag](https://media.licdn.com/mpr/mpr/jc/AAEAAQAAAAAAAABmAAAAJDEwMDM5MDQzLTNkOGItNGI2NS05MTgxLWE2Zjg3YjkyOTY4MA.jpg)</center>
+
 _Enterprise Software Products (per Wikipedia): purpose-designed computer software used to satisfy the needs of an organization rather than individual users._
 
 Before the first cars were invented, no one knew they wanted a car. Instead, everyone was racking their brains to figure out how to breed a faster horse. <u>I argue that Google has caused a similar phenomenon in enterprise search products.</u>
