@@ -1,0 +1,17 @@
+{
+  "name": "mazira.com",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-markdown-to-json": "~0.4.2",
+    "grunt-filetransform": "~0.1.1",
+    "assemble": "~0.4.35"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5"
+  }
+}
