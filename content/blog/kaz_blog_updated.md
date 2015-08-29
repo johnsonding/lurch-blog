@@ -140,6 +140,6 @@ tags:
 }
 </code></pre>
 <p>And here’s a screenshot of what the highlighting in PDF.js looks like (note the yellow highlighting):
-<img src="http://i.imgur.com/ZKXRL8n.png" alt="pdf.js highlighting screenshot"></p>
+<img src="http://i.imgur.com/ZKXRL8n.png" alt="pdf.js highlighting screenshot" style="width: 100%;max-height: 100%"></p>
 
 </body></html>
