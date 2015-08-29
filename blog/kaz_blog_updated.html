@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<!-- Basic Page Needs
+	================================================== -->
+	<meta charset="utf-8">
+	<title>Mazira - Search Parameter Highlighting in PDF.js</title>
+	<meta name="description"
+		  content="Blog article by Kaz Smith ">
+	<meta name="author" content="Kaz Smith, Mazira LLC">
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- CSS
+	================================================== -->
+	<!-- Bootstrap  -->
+	<link type="text/css" rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+	<!-- web font  -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,800" rel="stylesheet" type="text/css">
+	<!-- plugin css  -->
+	<link rel="stylesheet" type="text/css" href="../js-plugin/animation-framework/animate.css"/>
+	<link rel="stylesheet" type="text/css" href="../js-plugin/magnific-popup/magnific-popup.css"/>
+	<!-- icon fonts -->
+	<link type="text/css" rel="stylesheet" href="../font-icons/custom-icons/css/custom-icons.css">
+	<link type="text/css" rel="stylesheet" href="../font-icons/custom-icons/css/custom-icons-ie7.css">
+	<!-- Custom css -->
+	<link type="text/css" rel="stylesheet" href="../css/layout.css">
+	<link type="text/css" id="colors" rel="stylesheet" href="../css/colors.css">
+	<link type="text/css" id="syntax" rel="stylesheet" href="../css/tomorrow.css">
+	<!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+	<script src="../js/modernizr-2.6.1.min.js"></script>
+	<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<!-- Basic Page Needs
+	<script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-35559722-1', 'mazira.com');
+		ga('send', 'pageview');
+
+	</script>
+</head>
+<body data-spy="scroll" data-target="#scrollTarget" data-offset="150">
+
+<!-- body -->
+
+<!-- header -->
+<header id="mainHeader" class="navbar-fixed-top" role="banner">
+	<div class="container">
+		<nav class="navbar navbar-default scrollMenu" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span></button>
+				<a class="navbar-brand" href="http://johnsonding.github.io/lurch/index.html">
+                    <img src="../images/main-logo.png" alt=""/></a></div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse" id="scrollTarget">
+				<ul class="nav navbar-nav pull-right">
+                    <li class="active"><a href="../blog.html"><i class="icon-comment"></i>Blog</a></li>
+					<li><a href="http://johnsonding.github.io/lurch/index.html"><i class="icon-star"></i>About</a></li>
+                    <li><a href="../blog.html"><i class="icon-thumbs-up"></i>Services</a></li>
+					<li><a href="../blog.html"><i class="icon-mail"></i>Contact</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</header>
+<!-- end header -->
+
+<!-- content -->
+<section class="slice" id="news">
+	<div class="container imgHover">
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1">
+				<article>
+					<h1>Search Parameter Highlighting in PDF.js</h1>
+
+					<div class="subTitle">by Kaz Smith</div>
+					<div class="date">2015/08/27</div>
+					<p><h3><a id="Introduction_2"></a>Introduction</h3></p>
+<p>Mozilla’s PDF.js is a great utility for rendering PDFs in the browser. PDF.js is very versatile, and can be used to display a PDF anywhere in a webpage. At Mazira, we’re developing GoldFynch, a web application which lawyers will use to organize, search, and process the large volume of case documents they handle. Since GoldFynch handles lots of documents, PDF rendering support within the application is very important. We chose to use PDF.js to render PDFs (and documents converted to PDF) in GoldFynch. We’ve been very happy with the capabilities of PDF.js.</p>
+<h3><a id="The_Problem_5"></a>The Problem</h3>
+<p>However, PDF.js is a generalized application designed to provide a commonly used subset of tools for PDF rendering and processing. It can’t fit everyone’s needs, and it didn’t perfectly fit our needs. As we’ve developed GoldFynch here at Mazira, a number of lawyers have requested the ability to use GoldFynch to open attachments displayed in PDF versions of emails. This is a fairly specific problem, so it’s not handled by PDF.js. We had to develop our own solution. One important part of turning these attachment filenames into links is highlighting them to indicate that they are clickable. I was tasked with editing PDF.js to handle a “search” parameter in the URL used to open the PDF. This search parameter would then be highlighted in the PDF. With this solution, we could easily draw attention to any part of the PDF.</p>
+<h3><a id="The_Solution_highlighting_stuff_8"></a>The Solution (highlighting stuff)</h3>
+<p>Within PDF.js, I had to make a few changes to viewer.js. I decided the best way to do the highlighting was to work alongside the find functionality in PDF.js. Under the hood, PDF.js contains lots of small divs which contain parts of the text of the PDF. Mirroring the find functionality would give me access to these divs. However, I knew I couldn’t just trigger the find bar to search for the URL search parameter, since that would cause the highlighting to be removed when the user used the find bar to search for something else.</p>
+<p>When you use the find bar in PDF.js, it just searches the page text for matches to your query. I copied this idea, and saved a separate set of matches for the URL search parameter. The actual displaying of the highlighting is where it gets a bit more interesting. I needed the highlighting to stay there and to not interfere with the find bar functionality. I decided to change  the background of the various divs containing pieces of the PDF text to a transparent yellow to act as highlighting. However, these divs might contain more than just the text I wanted to highlight. They could also contain only part of the text I wanted to highlight. To deal with this issue, I decided to use CSS gradients.</p>
+<p>Here’s the first part of my code:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> k0 = <span class="hljs-number">0</span>, k1 = parMatches.length;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = k0; k &lt; k1; k++) {
+    <span class="hljs-keyword">var</span> parMatch = parMatches[k];
+    <span class="hljs-keyword">var</span> begin = parMatch.begin;
+    <span class="hljs-keyword">var</span> end = parMatch.end;
+
+    <span class="hljs-keyword">var</span> hlBeginPercent = begin.offset / bidiTexts[begin.divIdx].str.length <em> <span class="hljs-number">100</span>;
+    hlBeginPercent = hlBeginPercent.toFixed(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">var</span> hlEndPercent = end.offset / bidiTexts[end.divIdx].str.length </em> <span class="hljs-number">100</span>;
+    hlEndPercent = hlEndPercent.toFixed(<span class="hljs-number">1</span>);
+    ...
+</code></pre>
+<p>I loop through the text matches - <code>parMatch</code> represents a specific match. <code>begin</code> represents the text div in which the match starts, and <code>end</code> represents the text div in which the match ends. Next I calculate a couple of percentages. The first, <code>hlBeginPercent</code>, represents the position in the <code>begin</code> div at which the highlighting should start. <code>begin.offset</code> is the number of characters into the <code>begin</code> div at which the match starts, and <code>bidiTexts</code> is an array containing all the text divs. So, <code>bidiTexts[begin.divIdx].str.length</code> is the length of the text in the <code>begin</code> div. Therefore <code>hlBeginPercent</code> gets set to the position in the <code>begin</code> div at which the match text starts, calculated as a percentage. <code>hlEndPercent</code> is essentially the same, but it represents the position in the <code>end</code> div at which the match text ends.</p>
+<p>Now I actually apply the gradients:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">if</span> (begin.divIdx === end.divIdx) { <span class="hljs-comment">// the string to be highlighted is all in one div</span>
+    <span class="hljs-keyword">var</span> beginStr = <span class="hljs-string">&#39;(left, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 0%, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                    <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 100%)&#39;</span>;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + beginStr;
+} <span class="hljs-keyword">else</span> {
+    ...
+</code></pre>
+<p>If the match text is all contained in one text div, it’s not too complicated. You can look at the syntax for CSS gradients <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient">here</a>. My gradient sets the background of the text div to be transparent until <code>hlBeginPercent</code>% of the way into the div, then to be a slightly transparent yellow until <code>hlEndPercent</code>% of the way into the div, then to be transparent again until the end of the div. This results in the div being a slightly transparent yellow where the match text is, which makes the match text look highlighted.</p>
+<p>Lastly, here’s the code used when the match text is contained in multiple divs:</p>
+<pre><code class="language-javascript">} <span class="hljs-keyword">else</span> { <span class="hljs-comment">// the string to be highlighted is contained in multiple divs</span>
+    <span class="hljs-comment">// the first div</span>
+    <span class="hljs-keyword">var</span> beginStr = <span class="hljs-string">&#39;(left, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 0%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) 100%)&#39;</span>;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + beginStr;
+    textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + beginStr;
+
+    <span class="hljs-comment">// any divs in between the first and last divs</span>
+    <span class="hljs-comment">// in which the string to be highlighted is contained</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> midDivIdx = begin.divIdx + <span class="hljs-number">1</span>; midDivIdx &lt; end.divIdx; ++midDivIdx) {
+        textDivs[midDivIdx].style.background = <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9)&#39;</span>;
+    }
+
+    <span class="hljs-comment">// the last div</span>
+    <span class="hljs-keyword">var</span> endStr =  <span class="hljs-string">&#39;(left, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) 0%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                  <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 100%)&#39;</span>;
+    textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + endStr;
+    textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + endStr;
+    textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + endStr;
+    textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + endStr;
+    textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + endStr;
+}
+</code></pre>
+<p>The first div gets highlighted from <code>hlBeginPercent</code>% of the way into the div to the end. Any divs in the middle get completely highlighted. The last div gets highlighted from the beginning through <code>hlEndPercent</code>% of the way into the div.</p>
+<p>That’s all! Here’s the full block of code (remember to make it cross browser!)</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> k0 = <span class="hljs-number">0</span>, k1 = parMatches.length;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = k0; k &lt; k1; k++) {
+    <span class="hljs-keyword">var</span> parMatch = parMatches[k];
+    <span class="hljs-keyword">var</span> begin = parMatch.begin;
+    <span class="hljs-keyword">var</span> end = parMatch.end;
+
+    <span class="hljs-keyword">var</span> hlBeginPercent = begin.offset / bidiTexts[begin.divIdx].str.length <em> <span class="hljs-number">100</span>;
+    hlBeginPercent = hlBeginPercent.toFixed(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">var</span> hlEndPercent = end.offset / bidiTexts[end.divIdx].str.length </em> <span class="hljs-number">100</span>;
+    hlEndPercent = hlEndPercent.toFixed(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">if</span> (begin.divIdx === end.divIdx) { <span class="hljs-comment">// the string to be highlighted is all in one div</span>
+        <span class="hljs-keyword">var</span> beginStr = <span class="hljs-string">&#39;(left, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 0%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 100%)&#39;</span>;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + beginStr;
+    } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// the string to be highlighted is contained in multiple divs</span>
+        <span class="hljs-comment">// the first div</span>
+        <span class="hljs-keyword">var</span> beginStr = <span class="hljs-string">&#39;(left, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 0%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlBeginPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                        <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) 100%)&#39;</span>;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + beginStr;
+        textDivs[begin.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + beginStr;
+
+        <span class="hljs-comment">// any divs in between the first and last divs</span>
+        <span class="hljs-comment">// in which the string to be highlighted is contained</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> midDivIdx = begin.divIdx + <span class="hljs-number">1</span>; midDivIdx &lt; end.divIdx; ++midDivIdx) {
+            textDivs[midDivIdx].style.background = <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9)&#39;</span>;
+        }
+
+        <span class="hljs-comment">// the last div</span>
+        <span class="hljs-keyword">var</span> endStr =  <span class="hljs-string">&#39;(left, &#39;</span> +
+                      <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) 0%, &#39;</span> +
+                      <span class="hljs-string">&#39;rgba(255, 255, 0, 0.9) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                      <span class="hljs-string">&#39;rgba(0, 0, 0, 0) &#39;</span> + hlEndPercent + <span class="hljs-string">&#39;%, &#39;</span> +
+                      <span class="hljs-string">&#39;rgba(0, 0, 0, 0) 100%)&#39;</span>;
+        textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-webkit-linear-gradient&#39;</span> + endStr;
+        textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-moz-linear-gradient&#39;</span> + endStr;
+        textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-ms-linear-gradient&#39;</span> + endStr;
+        textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;-o-linear-gradient&#39;</span> + endStr;
+        textDivs[end.divIdx].style.background = <span class="hljs-string">&#39;linear-gradient&#39;</span> + endStr;
+    }
+}
+</code></pre>
+<p>And here’s a screenshot of what the highlighting in PDF.js looks like (note the yellow highlighting):
+<img src="http://i.imgur.com/ZKXRL8n.png" alt="pdf.js highlighting screenshot"></p>
+
+<p></body></html></p>
+
+				</article>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- end content -->
+
+<!-- footer -->
+<footer>
+	<section id="mainFooter">
+		<div class="container" id="footer">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="footerWidget">
+						<img src="../images/main-logo.png" alt="Mazira" id="footerLogo" height="30px">
+
+						<p><a href="https://mazira.com" title="Mazira, data management company">Mazira</a> is a data and
+							document management company. We build software to store and organize large data collections
+							so that it can become useful. Data by itself isn't very useful unless it is distilled into
+							useful information!</p>
+					</div>
+				</div>
+
+				<div class="col-sm-6">
+					<div class="footerWidget">
+
+						<h3>Mazira, LLC</h3>
+						<address>
+							<p><i class="icon-location"></i>316 E. Court Street<br>
+								Iowa City, IA 52240-4767 USA<br>
+								<i class="icon-phone"></i><a href="tel://1-866-319-6068">+1 (866) 319-6068</a> <br>
+								<i class="icon-mail-alt"></i><a href="mailto:info@mazira.com">info@mazira.com</a></p>
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</footer>
+<section id="footerRights">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<p>Copyright © 2014 <a href="https://mazira.com" target="blank">Mazira, LLC</a>
+					<br/>All rights reserved.
+				</p>
+			</div>
+			<div class="col-sm-6">
+				<ul class="socialNetwork pull-right">
+					<li><a href="https://www.facebook.com/pages/Mazira/216219471762517" class="tips"
+						   title="follow us on Facebook"><i class="icon-facebook-1 iconRounded"></i></a></li>
+					<li><a href="https://twitter.com/Mazira" class="tips" title="follow us on Twitter"
+						   target="_blank"><i class="icon-twitter-bird iconRounded"></i></a></li>
+					<li><a href="http://www.linkedin.com/company/mazira" class="tips" title="follow us on Linkedin"><i
+							class="icon-linkedin-1 iconRounded"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<!-- end footer -->
+
+<!-- end body -->
+
+<script type="text/javascript" src="../js-plugin/respond/respond.min.js"></script>
+<script type="text/javascript" src="../js-plugin/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="../js-plugin/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
+<!-- third party plugins  -->
+<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../js-plugin/easing/jquery.easing.1.3.js"></script>
+
+<script type="text/javascript" src="../js-plugin/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="../js-plugin/jquery.sharrre-1.3.4/jquery.sharrre-1.3.4.min.js"></script>
+
+<!-- Custom  -->
+<script type="text/javascript" src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>

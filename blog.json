@@ -1,5 +1,19 @@
 [
 	{
+		"title": "Search Parameter Highlighting in PDF.js",
+		"author": "Kaz Smith",
+		"date": "2015/08/27",
+		"description": "Blog article by Kaz Smith",
+		"tags": [
+			"enterprise_software",
+			"document_management",
+			"it_strategy"
+		],
+		"preview": "<h3><a id=\"Introduction_2\"></a>Introduction</h3>\n…",
+		"iso8601Date": "2015-08-27T00:00:00-05:00",
+		"basename": "kaz_blog_updated"
+	},
+	{
 		"title": "The Google Brainwash: Why We Think We Need A Faster Horse",
 		"author": "Anith Mathai",
 		"date": "2015/02/20",
